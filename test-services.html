@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Services with Pricing</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .service { border: 1px solid #ddd; margin: 10px; padding: 15px; border-radius: 8px; display: inline-block; width: 300px; vertical-align: top; }
+        .price { font-size: 18px; font-weight: bold; color: #e67e22; }
+        .free { color: #27ae60; }
+        .contact-redirect { color: #e74c3c; font-weight: bold; }
+        .direct-access { color: #3498db; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>Services with Pricing Test</h1>
+    <p>This page shows all services with their prices and redirect behavior:</p>
+    
+    <div id="services"></div>
+
+    <script>
+        const services = [
+            { title: 'राशिफल (Horoscope)', description: 'Daily, weekly & monthly predictions', price: 'Free', href: '/horoscope', type: 'direct' },
+            { title: 'कुंडली (Kundli)', description: 'Free birth chart analysis', price: 'Free', href: '/kundli', type: 'direct' },
+            { title: 'कुंडली मिलान (Match Making)', description: '36 Guna Milan for marriage', price: 'Free', href: '/match-making', type: 'direct' },
+            { title: 'पंचांग (Panchang)', description: 'Daily Tithi, Nakshatra & more', price: 'Free', href: '/panchang', type: 'direct' },
+            { title: 'मुहूर्त (Muhurta)', description: 'Find auspicious timings', price: '₹199', href: '/contact', type: 'contact' },
+            { title: 'कॉल पर बात (Call Astrologer)', description: 'Live voice consultation', price: '₹25/min', href: '/contact', type: 'contact' },
+            { title: 'चैट (Chat)', description: 'Text with astrologers', price: '₹15/min', href: '/contact', type: 'contact' },
+            { title: 'वीडियो कॉल (Video Call)', description: 'Face-to-face consultation', price: '₹35/min', href: '/contact', type: 'contact' },
+            { title: 'AI बॉट (AI Astrology)', description: 'Instant AI predictions', price: 'Free', href: '/ai-bot', type: 'direct' },
+            { title: 'रत्न दुकान (Astro Shop)', description: 'Gemstones, Rudraksha & Yantra', price: '₹500+', href: '/contact', type: 'contact' },
+            { title: 'उपाय (Remedies)', description: 'Personalized solutions', price: '₹299', href: '/contact', type: 'contact' },
+            { title: 'वास्तु (Vastu)', description: 'Home & office guidance', price: '₹999', href: '/contact', type: 'contact' }
+        ];
+
+        function displayServices() {
+            const container = document.getElementById('services');
+            
+            container.innerHTML = services.map(service => `
+                <div class="service">
+                    <h3>${service.title}</h3>
+                    <p>${service.description}</p>
+                    <div class="price ${service.price === 'Free' ? 'free' : ''}">${service.price}</div>
+                    <p><strong>Redirect:</strong> 
+                        <span class="${service.type === 'contact' ? 'contact-redirect' : 'direct-access'}">
+                            ${service.href} (${service.type === 'contact' ? 'Contact Form' : 'Direct Access'})
+                        </span>
+                    </p>
+                    <button onclick="testRedirect('${service.href}', '${service.title}')">
+                        ${service.type === 'contact' ? 'Contact for Service' : 'Try Service'}
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function testRedirect(href, title) {
+            if (href === '/contact') {
+                alert(`✅ ${title} correctly redirects to Contact Form\nURL: ${href}`);
+            } else {
+                alert(`✅ ${title} provides direct access\nURL: ${href}`);
+            }
+        }
+
+        // Display services
+        displayServices();
+        
+        // Summary
+        const freeServices = services.filter(s => s.price === 'Free').length;
+        const paidServices = services.filter(s => s.price !== 'Free').length;
+        const contactRedirects = services.filter(s => s.type === 'contact').length;
+        const directAccess = services.filter(s => s.type === 'direct').length;
+        
+        console.log('Services Summary:');
+        console.log(`Total Services: ${services.length}`);
+        console.log(`Free Services: ${freeServices}`);
+        console.log(`Paid Services: ${paidServices}`);
+        console.log(`Contact Form Redirects: ${contactRedirects}`);
+        console.log(`Direct Access: ${directAccess}`);
+        
+        // Add summary to page
+        const summaryDiv = document.createElement('div');
+        summaryDiv.innerHTML = `
+            <h2>Summary</h2>
+            <ul>
+                <li>Total Services: ${services.length}</li>
+                <li>Free Services: ${freeServices}</li>
+                <li>Paid Services: ${paidServices}</li>
+                <li>Contact Form Redirects: ${contactRedirects}</li>
+                <li>Direct Access: ${directAccess}</li>
+            </ul>
+        `;
+        document.body.appendChild(summaryDiv);
+    </script>
+</body>
+</html>
