@@ -1,8 +1,12 @@
 import { Star, Sparkles, Calendar, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useNavigate } from "react-router-dom";
 import heroBg from '@/assets/hero-bg.jpg';
 
+
+
 const HeroSection = () => {
+  const navigate = useNavigate();
   const todayDate = new Date().toLocaleDateString('hi-IN', {
     weekday: 'long',
     year: 'numeric',
@@ -47,11 +51,11 @@ const HeroSection = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <Button variant="hero" size="xl">
+              <Button variant="hero" size="xl" onClick={() => navigate("/astrologers")}>
                 <Phone className="w-5 h-5" />
                 ज्योतिषी से बात करें
               </Button>
-              <Button variant="spiritual" size="xl">
+              <Button variant="spiritual" size="xl" onClick={() => navigate("/Kundli")}>
                 <Sparkles className="w-5 h-5" />
                 Free Kundli
               </Button>
