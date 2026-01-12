@@ -13,42 +13,70 @@ const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone:'',
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+
+  const handleSubmit = (e: React.FormEvent) => {
+  e.preventDefault();
+
+  if (!formData.name || !formData.email || !formData.phone || !formData.message) {
+    toast.error("Please fill in all fields");
+    return;
+  }
+
+  const subject = encodeURIComponent("New Contact Form Message");
+
+  const body = encodeURIComponent(
+`Name: ${formData.name}
+Email: ${formData.email}
+Phone: ${formData.phone}
+
+Message:
+${formData.message}`
+  );
+
+  window.location.href =
+    `mailto:shreedarshanjyoti@gmail.com?subject=${subject}&body=${body}`;
+
+  toast.success("Opening email...");
+};
+
+
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
     
-    if (!formData.name || !formData.email || !formData.message) {
-      toast.error('Please fill in all fields');
-      return;
-    }
+  //   if (!formData.name || !formData.email || !formData.message) {
+  //     toast.error('Please fill in all fields');
+  //     return;
+  //   }
 
-    setIsSubmitting(true);
+  //   setIsSubmitting(true);
 
-    try {
-      const { error } = await supabase
-        .from('contact_submissions')
-        .insert({
-          name: formData.name,
-          email: formData.email,
-          message: formData.message
-        });
+  //   try {
+  //     const { error } = await supabase
+  //       .from('contact_submissions')
+  //       .insert({
+  //         name: formData.name,
+  //         email: formData.email,
+  //         message: formData.message
+  //       });
 
-      if (error) throw error;
+  //     if (error) throw error;
 
-      setIsSubmitted(true);
-      setFormData({ name: '', email: '', message: '' });
-      toast.success('Message sent successfully! We will get back to you soon.');
-    } catch (error) {
-      console.error('Error submitting contact form:', error);
-      toast.error('Failed to send message. Please try again.');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+  //     setIsSubmitted(true);
+  //     setFormData({ name: '', email: '', message: '' });
+  //     toast.success('Message sent successfully! We will get back to you soon.');
+  //   } catch (error) {
+  //     console.error('Error submitting contact form:', error);
+  //     toast.error('Failed to send message. Please try again.');
+  //   } finally {
+  //     setIsSubmitting(false);
+  //   }
+  // };
 
   const handleWhatsAppContact = () => {
     const message = encodeURIComponent('Hello! I would like to know more about your astrology services.');
@@ -212,6 +240,20 @@ const Contact = () => {
                       className="mt-1"
                     />
                   </div>
+                  <div>
+  <Label htmlFor="phone">Phone Number *</Label>
+  <Input
+    id="phone"
+    type="tel"
+    value={formData.phone}
+    onChange={(e) =>
+      setFormData({ ...formData, phone: e.target.value })
+    }
+    placeholder="Enter your phone number"
+    required
+    className="mt-1"
+  />
+</div>
 
                   <div>
                     <Label htmlFor="email">Email Address *</Label>
