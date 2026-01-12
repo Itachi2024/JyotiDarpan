@@ -27,7 +27,7 @@ const astrologers = [
     verified: true,
   },
   {
-    name: 'ज्योतिषी ',
+    name: 'ज्योतिषी सुनीता  ',
     english: 'Jyotishi Sunita Dadhich',
     specialty: 'Kundali, Remedies',
     experience: '10+ years',
@@ -39,7 +39,7 @@ const astrologers = [
     verified: true,
   },
   {
-    name: 'पंडित Mahesh दाधीच ',
+    name: 'पंडित महेश दाधीच ',
     english: 'Pandit Mahesh Dadhich',
     specialty: 'Muhrat, Marriage',
     experience: '12+ years',

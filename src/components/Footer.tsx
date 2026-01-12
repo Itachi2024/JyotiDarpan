@@ -9,6 +9,7 @@ import {
   Youtube,
   ArrowRight
 } from 'lucide-react';
+import { FaWhatsapp } from "react-icons/fa";
 import { Button } from '@/components/ui/button';
 
 const Footer = () => {
@@ -22,18 +23,18 @@ const Footer = () => {
 
   const services = [
     { label: 'Talk to Astrologer', href: '/astrologers' },
-    { label: 'Chat with Astrologer', href: '/chat' },
-    { label: 'Video Consultation', href: '/video' },
+    { label: 'Chat with Astrologer', href: '/astrologers' },
+    // { label: 'Video Consultation', href: '/video' },
     { label: 'AI Astrology Bot', href: '/ai-bot' },
     { label: 'Astro Shop', href: '/shop' },
   ];
 
   const resources = [
     { label: 'Blog', href: '/blog' },
-    { label: 'Hindu Calendar', href: '/calendar' },
+    { label: 'Hindu Calendar', href: 'https://www.drikpanchang.com/calendars/hindu/hinducalendar.html' },
     { label: 'Remedies', href: '/remedies' },
-    { label: 'Gemstones', href: '/gemstones' },
-    { label: 'About Us', href: '/about' },
+    { label: 'Gemstones', href: '/shop' },
+    // { label: 'About Us', href: '/about' },
   ];
 
   return (
@@ -83,15 +84,17 @@ const Footer = () => {
             <div className="space-y-2">
               <a href="tel:+911234567890" className="flex items-center gap-2 text-white/70 hover:text-white transition-colors">
                 <Phone className="w-4 h-4" />
-                +91 12345 67890
+              +91 97991 04619
               </a>
-              <a href="mailto:support@jyotishguru.com" className="flex items-center gap-2 text-white/70 hover:text-white transition-colors">
+              <a href="mailto: shreedarshanjyoti@gmail.com" className="flex items-center gap-2 text-white/70 hover:text-white transition-colors">
                 <Mail className="w-4 h-4" />
-                support@jyotishguru.com
+                shreedarshanjyoti@gmail.com
               </a>
               <p className="flex items-center gap-2 text-white/70">
                 <MapPin className="w-4 h-4" />
-                New Delhi, India
+                Purani Rakasani, Soorsagar
+                Jodhpur, Rajasthan, India
+                342001 
               </p>
             </div>
           </div>
@@ -148,7 +151,11 @@ const Footer = () => {
               {[
                 { icon: Facebook, href: '#' },
                 { icon: Twitter, href: '#' },
-                { icon: Instagram, href: '#' },
+                { icon: Instagram, href: 'https://www.instagram.com/astro_rishabh_21?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==' },
+                {
+          icon: FaWhatsapp,
+          href: "https://chat.whatsapp.com/your_whatsapp_community_link",
+        },
                 { icon: Youtube, href: '#' },
               ].map((social, index) => (
                 <a
@@ -161,7 +168,7 @@ const Footer = () => {
               ))}
             </div>
 
-            {/* Payment Methods */}
+            {/* Payment Methods
             <div className="flex items-center gap-3">
               <span className="text-white/60 text-sm">Payments:</span>
               <div className="flex gap-2">
@@ -171,7 +178,7 @@ const Footer = () => {
                   </span>
                 ))}
               </div>
-            </div>
+            </div> */}
 
             {/* Copyright */}
             <p className="text-white/60 text-sm">

@@ -52,14 +52,14 @@ const Contact = () => {
 
   const handleWhatsAppContact = () => {
     const message = encodeURIComponent('Hello! I would like to know more about your astrology services.');
-    const whatsappUrl = `https://wa.me/919876543210?text=${message}`;
+    const whatsappUrl = `https://wa.me/+919799104619?text=${message}`;
     window.open(whatsappUrl, '_blank');
   };
 
   const handleEmailContact = () => {
     const subject = encodeURIComponent('Inquiry about Astrology Services');
     const body = encodeURIComponent('Hello,\n\nI would like to know more about your astrology services.\n\nThank you.');
-    const emailUrl = `mailto:contact@jyotishguru.com?subject=${subject}&body=${body}`;
+    const emailUrl = `mailto:shreedarshanjyoti@gmail.com?subject=${subject}&body=${body}`;
     window.open(emailUrl, '_blank');
   };
 
@@ -122,7 +122,7 @@ const Contact = () => {
                 </div>
                 <div className="flex-1">
                   <h3 className="font-semibold text-foreground mb-1">Email</h3>
-                  <p className="text-muted-foreground text-sm mb-1">contact@jyotishguru.com</p>
+                  <p className="text-muted-foreground text-sm mb-1">shreedarshanjyoti@gmail.com</p>
                   <p className="text-muted-foreground text-sm mb-3">
                     Send us detailed queries via email
                   </p>
@@ -145,7 +145,7 @@ const Contact = () => {
                 </div>
                 <div className="flex-1">
                   <h3 className="font-semibold text-foreground mb-1">Phone</h3>
-                  <p className="text-muted-foreground text-sm mb-1">+91-98765-43210</p>
+                  <p className="text-muted-foreground text-sm mb-1">+91 97991 04619</p>
                   <p className="text-muted-foreground text-sm">
                     Available 24/7 for urgent consultations
                   </p>
@@ -293,13 +293,17 @@ const Contact = () => {
             <p className="text-sm text-muted-foreground mb-4">
               Speak directly with our astrologers
             </p>
-            <Button 
-              variant="outline" 
-              size="sm"
-              onClick={() => toast.info('Feature coming in Phase 2! Please use WhatsApp for now.')}
-            >
-              Call Now
-            </Button>
+           <Button
+  variant="outline"
+  size="sm"
+  onClick={() => {
+    toast.info("Calling now...");
+    window.location.href = "tel:+919799104619";
+  }}
+>
+  Call Now
+</Button>
+
           </div>
 
           <div className="text-center p-6 rounded-xl bg-muted/50">
