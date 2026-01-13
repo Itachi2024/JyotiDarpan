@@ -4,7 +4,6 @@ import RashiSection from '@/components/RashiSection';
 import ServicesSection from '@/components/ServicesSection';
 import AstrologerSection from '@/components/AstrologerSection';
 import FestivalSection from '@/components/FestivalSection';
-import AIChatbotBanner from '@/components/AIChatbotBanner';
 import Footer from '@/components/Footer';
 
 const Index = () => {
@@ -17,7 +16,6 @@ const Index = () => {
         <ServicesSection />
         <AstrologerSection />
         <FestivalSection />
-        <AIChatbotBanner />
       </main>
       <Footer />
     </div>

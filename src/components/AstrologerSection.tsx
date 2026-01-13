@@ -80,32 +80,32 @@ const AstrologerSection = () => {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
-  {/* Talk Now */}
-  <a
-    href={WHATSAPP_LINK}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="w-full sm:w-auto"
-  >
-    <Button variant="hero" size="lg" className="w-full">
-      <Phone className="w-5 h-5" />
-      Talk Now @ ₹25/min
-    </Button>
-  </a>
+              {/* Talk Now */}
+              <a
+                href={WHATSAPP_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto"
+              >
+                <Button variant="hero" size="lg" className="w-full">
+                  <Phone className="w-5 h-5" />
+                  Talk Now - ₹500 Consultation
+                </Button>
+              </a>
 
-  {/* Chat with Astrologer */}
-  <a
-    href={WHATSAPP_LINK}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="w-full sm:w-auto"
-  >
-    <Button variant="spiritual" size="lg" className="w-full">
-      <MessageCircle className="w-5 h-5" />
-      Chat with Astrologer
-    </Button>
-  </a>
-</div>
+              {/* Chat with Astrologer */}
+              <a
+                href={WHATSAPP_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto"
+              >
+                <Button variant="spiritual" size="lg" className="w-full">
+                  <MessageCircle className="w-5 h-5" />
+                  Chat with Astrologer
+                </Button>
+              </a>
+            </div>
 
            
           </div>

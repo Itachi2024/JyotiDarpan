@@ -1,86 +1,71 @@
--- Seed data for astrology platform
+-- AstroRishabh Seed Data
+-- Sample data for testing and initial setup
 
--- Update RLS policy to allow public read access to astrologers
-DROP POLICY IF EXISTS "Anyone can view astrologers" ON public.astrologers;
-CREATE POLICY "Anyone can view verified astrologers" ON public.astrologers 
-    FOR SELECT USING (is_verified = true);
+-- Sample horoscope data for today
+INSERT INTO public.horoscopes (date, sign, overview_hindi, overview_english, love_score, career_score, health_score, finance_score, lucky_number, lucky_color, lucky_time) VALUES
+(CURRENT_DATE, 'aries', 'आज आपका दिन शुभ रहेगा। नए अवसर मिल सकते हैं।', 'Today will be a good day for you. New opportunities may come your way.', 85, 75, 90, 70, 7, 'Red', '10:30 AM'),
+(CURRENT_DATE, 'taurus', 'धन संबंधी मामलों में सावधानी बरतें। स्वास्थ्य अच्छा रहेगा।', 'Be careful in money matters. Health will be good.', 70, 80, 85, 65, 3, 'Green', '2:15 PM'),
+(CURRENT_DATE, 'gemini', 'संवाद कौशल का उपयोग करें। करियर में प्रगति संभव है।', 'Use your communication skills. Career progress is possible.', 75, 90, 70, 80, 5, 'Yellow', '11:45 AM'),
+(CURRENT_DATE, 'cancer', 'पारिवारिक मामलों में खुशी मिलेगी। भावनात्मक संतुलन बनाए रखें।', 'You will find happiness in family matters. Maintain emotional balance.', 90, 65, 80, 75, 2, 'Silver', '4:20 PM'),
+(CURRENT_DATE, 'leo', 'आत्मविश्वास से काम लें। नेतृत्व के अवसर मिल सकते हैं।', 'Work with confidence. Leadership opportunities may arise.', 80, 85, 75, 85, 1, 'Gold', '9:30 AM'),
+(CURRENT_DATE, 'virgo', 'विस्तार पर ध्यान दें। कार्यक्षेत्र में सफलता मिलेगी।', 'Pay attention to details. You will succeed in your work area.', 65, 95, 85, 70, 6, 'Navy Blue', '1:10 PM'),
+(CURRENT_DATE, 'libra', 'संतुलन बनाए रखें। रिश्तों में सुधार होगा।', 'Maintain balance. Relationships will improve.', 85, 70, 80, 75, 4, 'Pink', '3:45 PM'),
+(CURRENT_DATE, 'scorpio', 'गहराई से सोचें। छुपे हुए अवसर मिल सकते हैं।', 'Think deeply. Hidden opportunities may be found.', 75, 80, 70, 90, 8, 'Maroon', '6:30 PM'),
+(CURRENT_DATE, 'sagittarius', 'यात्रा या शिक्षा संबंधी योजनाएं शुभ हैं। भाग्य साथ देगा।', 'Travel or education related plans are auspicious. Luck will support you.', 80, 75, 85, 80, 9, 'Purple', '8:15 AM'),
+(CURRENT_DATE, 'capricorn', 'मेहनत का फल मिलेगा। धैर्य रखें और आगे बढ़ें।', 'You will get the fruits of hard work. Be patient and move forward.', 70, 90, 75, 85, 10, 'Brown', '12:30 PM'),
+(CURRENT_DATE, 'aquarius', 'नवाचार और तकनीक का उपयोग करें। मित्रों का साथ मिलेगा।', 'Use innovation and technology. You will get support from friends.', 85, 85, 80, 75, 11, 'Blue', '5:00 PM'),
+(CURRENT_DATE, 'pisces', 'कल्पना और सहजता का उपयोग करें। आध्यात्मिक लाभ होगा।', 'Use imagination and intuition. There will be spiritual benefits.', 90, 70, 85, 70, 12, 'Sea Green', '7:45 PM');
 
--- Update RLS policy for service rates
-DROP POLICY IF EXISTS "Anyone can view service rates" ON public.service_rates;
-CREATE POLICY "Anyone can view active service rates" ON public.service_rates 
-    FOR SELECT USING (is_active = true);
+-- Sample panchang data for today
+INSERT INTO public.panchangs (
+    date, 
+    tithi_name_hindi, 
+    tithi_name_english, 
+    tithi_end_time,
+    nakshatra_name_hindi, 
+    nakshatra_name_english, 
+    nakshatra_end_time,
+    yoga_name_hindi, 
+    yoga_name_english, 
+    yoga_end_time,
+    karana_name_hindi, 
+    karana_name_english, 
+    karana_end_time,
+    paksha, 
+    vaar_hindi, 
+    vaar_english,
+    sunrise, 
+    sunset, 
+    moonrise, 
+    moonset,
+    rahu_kaal_start, 
+    rahu_kaal_end,
+    yamagandam_start, 
+    yamagandam_end,
+    gulik_kaal_start, 
+    gulik_kaal_end,
+    abhijit_start, 
+    abhijit_end
+) VALUES (
+    CURRENT_DATE,
+    'द्वितीया', 'Dwitiya', '14:30:00',
+    'रोहिणी', 'Rohini', '16:45:00',
+    'सिद्धि', 'Siddhi', '13:20:00',
+    'बव', 'Bava', '14:30:00',
+    'शुक्ल पक्ष', 'Monday', 'Monday',
+    '06:30:00', '18:45:00', '20:15:00', '08:30:00',
+    '07:30:00', '09:00:00',
+    '12:00:00', '13:30:00',
+    '15:00:00', '16:30:00',
+    '12:00:00', '12:48:00'
+);
 
--- Insert sample astrologers (these will be available even without authentication)
-INSERT INTO public.astrologers (
-    id,
-    name, 
-    english_name, 
-    specialties, 
-    experience_years, 
-    rating, 
-    total_reviews, 
-    price_per_minute, 
-    languages, 
-    is_verified, 
-    total_consultations, 
-    description, 
-    is_admin, 
-    whatsapp_number, 
-    email_address, 
-    availability_status
-) VALUES 
-(
-    '550e8400-e29b-41d4-a716-446655440001',
-    'पंडित राजेश शर्मा',
-    'Pt. Rajesh Sharma',
-    ARRAY['Vedic Astrology', 'Kundli', 'Career'],
-    15,
-    4.9,
-    2340,
-    25,
-    ARRAY['Hindi', 'English'],
-    true,
-    15000,
-    'Expert in Vedic astrology with 15+ years of experience. Specialized in career guidance and relationship issues.',
-    true,
-    '+91-9876543210',
-    'rajesh.sharma@jyotishguru.com',
-    'online'
-),
-(
-    '550e8400-e29b-41d4-a716-446655440002',
-    'आचार्य विनोद मिश्रा',
-    'Acharya Vinod Mishra',
-    ARRAY['Numerology', 'Vastu', 'Remedies'],
-    20,
-    4.8,
-    3120,
-    35,
-    ARRAY['Hindi', 'Sanskrit'],
-    true,
-    22000,
-    'Renowned numerologist and Vastu expert. Known for providing effective remedies.',
-    true,
-    '+91-9876543211',
-    'vinod.mishra@jyotishguru.com',
-    'online'
-)
-ON CONFLICT (id) DO NOTHING;
+-- Sample muhurat data
+INSERT INTO public.muhurats (date, muhurta_type, start_time, end_time, quality, description) VALUES
+(CURRENT_DATE, 'Marriage', '10:30:00', '12:00:00', 'best', 'Excellent time for marriage ceremonies'),
+(CURRENT_DATE, 'Business', '14:00:00', '15:30:00', 'good', 'Good time for starting new business ventures'),
+(CURRENT_DATE, 'Travel', '09:00:00', '10:30:00', 'good', 'Auspicious time for beginning journeys'),
+(CURRENT_DATE, 'Education', '16:00:00', '17:30:00', 'best', 'Perfect time for educational activities'),
+(CURRENT_DATE + INTERVAL '1 day', 'Housewarming', '11:00:00', '12:30:00', 'best', 'Ideal time for griha pravesh ceremony');
 
--- Insert service rates if not exists
-INSERT INTO public.service_rates (service_name, price_inr, duration, description, is_active) VALUES
-('Daily Horoscope', 0, '5 mins', 'Free daily predictions for your zodiac sign', true),
-('Kundli Generation', 0, '30 mins', 'Free complete birth chart analysis', true),
-('Kundli Matching', 0, '45 mins', 'Free 36 Guna compatibility analysis', true),
-('Panchang Consultation', 0, '15 mins', 'Free Hindu calendar guidance', true),
-('Muhurat Selection', 299, '20 mins', 'Find perfect timing for important events', true),
-('Personal Call Consultation', 25, '1 min', 'One-on-one voice consultation with expert astrologer', true),
-('Chat Consultation', 15, '1 min', 'Text-based consultation with astrologers', true),
-('Video Call Consultation', 35, '1 min', 'Face-to-face video consultation', true),
-('AI Astrology Bot', 0, 'Instant', 'Free AI-powered astrology predictions', true),
-('Remedies & Solutions', 299, '40 mins', 'Personalized remedies for planetary doshas', true),
-('Career Guidance', 499, '45 mins', 'Professional astrology guidance for career decisions', true),
-('Love & Relationship', 399, '40 mins', 'Relationship compatibility and love guidance', true),
-('Health Astrology', 349, '35 mins', 'Health predictions and wellness guidance', true),
-('Vastu Consultation', 999, '60 mins', 'Complete Vastu analysis for home and office', true)
-ON CONFLICT (service_name) DO NOTHING;
+-- You can add more sample data as needed for testing

@@ -5,7 +5,6 @@ import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { RateChart } from '@/components/RateChart';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { useAuth } from '@/hooks/useAuth';
@@ -24,6 +23,7 @@ const planets = [
 ];
 
 const Kundli = () => {
+  const { user } = useAuth();
   const [formData, setFormData] = useState({
     name: '',
     gender: 'male',
@@ -35,7 +35,6 @@ const Kundli = () => {
   const [chartStyle, setChartStyle] = useState<'north' | 'south'>('north');
   const [kundliData, setKundliData] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const { user } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -48,14 +47,29 @@ const Kundli = () => {
     setIsLoading(true);
 
     try {
-      const { data, error } = await supabase.functions.invoke('generate-kundli', {
-        body: {
+      // For now, we'll create a simple kundli entry without complex calculations
+      const { data, error } = await supabase
+        .from('kundlis')
+        .insert({
+          user_id: user?.id || null,
           name: formData.name,
-          dateOfBirth: formData.dob,
-          timeOfBirth: formData.time,
-          placeOfBirth: formData.place,
-        }
-      });
+          date_of_birth: formData.dob,
+          time_of_birth: formData.time,
+          place_of_birth: formData.place,
+          chart_data: {
+            // Simple placeholder data - in production you'd integrate with astrology API
+            message: 'Kundli generated successfully. Please contact our astrologer for detailed analysis.',
+            generated_at: new Date().toISOString(),
+            basic_info: {
+              name: formData.name,
+              dob: formData.dob,
+              time: formData.time,
+              place: formData.place
+            }
+          }
+        } as any)
+        .select()
+        .single();
 
       if (error) throw error;
 
@@ -184,13 +198,6 @@ const Kundli = () => {
                 </Button>
               </form>
             </div>
-
-            {/* Rate Chart */}
-            <RateChart 
-              title="Kundli Services"
-              showAll={false}
-              filterServices={['Kundli Generation', 'Personal Consultation']}
-            />
           </div>
         ) : (
           /* Kundli Display */
@@ -392,5 +399,5 @@ const Kundli = () => {
     </div>
   );
 };
-
+  
 export default Kundli;

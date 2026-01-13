@@ -3,7 +3,6 @@ import { ChevronRight, Star, Calendar, TrendingUp, Heart, Briefcase, Sparkles, L
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
-import { RateChart } from '@/components/RateChart';
 import { toast } from 'sonner';
 
 const rashis = [
@@ -339,12 +338,6 @@ const Horoscope = () => {
               </div>
             </div>
 
-            {/* Rate Chart */}
-            <RateChart 
-              title="Horoscope Services"
-              showAll={false}
-              filterServices={['Daily Horoscope', 'Personal Consultation']}
-            />
           </div>
 
           {/* Horoscope Content */}

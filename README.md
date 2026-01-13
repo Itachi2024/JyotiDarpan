@@ -113,7 +113,7 @@ src/
 │   ├── Panchang.tsx    # Hindu calendar
 │   ├── Muhurta.tsx     # Auspicious timings
 │   ├── Astrologers.tsx # Astrologer directory
-│   ├── AIBot.tsx       # AI chat interface
+│   ├── Payment.tsx    # Secure payment gateway
 │   ├── Shop.tsx        # Product catalog
 │   ├── Remedies.tsx    # Astrological remedies
 │   └── Services.tsx    # All services overview
@@ -129,10 +129,9 @@ src/
 
 supabase/
 ├── functions/          # Edge Functions
-│   ├── ai-astrology/   # AI chat endpoint
-│   ├── generate-kundli/ # Kundli calculation
-│   └── match-making/   # Compatibility analysis
+│   └── send-contact-email/ # Contact form email handler
 ├── migrations/         # Database schema
+│   └── 001_final_schema.sql # Complete database setup
 └── seed.sql           # Sample data
 ```
 
@@ -181,10 +180,8 @@ npm run build
 Supabase handles the backend deployment automatically. For Edge Functions:
 
 ```bash
-# Deploy functions (if using Supabase CLI)
-supabase functions deploy ai-astrology
-supabase functions deploy generate-kundli
-supabase functions deploy match-making
+# Deploy contact email function
+supabase functions deploy send-contact-email --no-verify-jwt
 ```
 
 ## 🎨 Customization

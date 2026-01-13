@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
-import { RateChart } from '@/components/RateChart';
 
 const muhurtaTypes = [
   { id: 'marriage', name: 'विवाह', english: 'Marriage', icon: Heart, color: 'bg-pink-500', price: '₹999' },
@@ -117,15 +116,6 @@ const Muhurta = () => {
                 </ul>
               </div>
             </div>
-          </div>
-
-          {/* Rate Chart */}
-          <div className="mb-6">
-            <RateChart 
-              title="Muhurta Service Rates" 
-              showAll={false} 
-              filterServices={['Muhurat Selection', 'Personal Consultation']} 
-            />
           </div>
 
           {/* Contact CTA */}

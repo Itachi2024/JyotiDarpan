@@ -12,123 +12,73 @@ export type Database = {
       astrologers: {
         Row: {
           id: string
-          user_id: string | null
           name: string
           english_name: string | null
-          avatar_url: string | null
           specialties: string[] | null
           experience_years: number | null
           rating: number | null
           total_reviews: number | null
-          price_per_minute: number
           languages: string[] | null
           is_verified: boolean | null
-          is_online: boolean | null
-          total_consultations: number | null
           description: string | null
+          whatsapp_number: string | null
+          email_address: string | null
           created_at: string | null
-          updated_at: string | null
         }
         Insert: {
           id?: string
-          user_id?: string | null
           name: string
           english_name?: string | null
-          avatar_url?: string | null
           specialties?: string[] | null
           experience_years?: number | null
           rating?: number | null
           total_reviews?: number | null
-          price_per_minute: number
           languages?: string[] | null
           is_verified?: boolean | null
-          is_online?: boolean | null
-          total_consultations?: number | null
           description?: string | null
+          whatsapp_number?: string | null
+          email_address?: string | null
           created_at?: string | null
-          updated_at?: string | null
         }
         Update: {
           id?: string
-          user_id?: string | null
           name?: string
           english_name?: string | null
-          avatar_url?: string | null
           specialties?: string[] | null
           experience_years?: number | null
           rating?: number | null
           total_reviews?: number | null
-          price_per_minute?: number
           languages?: string[] | null
           is_verified?: boolean | null
-          is_online?: boolean | null
-          total_consultations?: number | null
           description?: string | null
+          whatsapp_number?: string | null
+          email_address?: string | null
           created_at?: string | null
-          updated_at?: string | null
         }
       }
-      chat_messages: {
+      contact_submissions: {
         Row: {
           id: string
-          consultation_id: string
-          sender_id: string
+          name: string
+          email: string
           message: string
-          message_type: string | null
+          is_read: boolean | null
           created_at: string | null
         }
         Insert: {
           id?: string
-          consultation_id: string
-          sender_id: string
+          name: string
+          email: string
           message: string
-          message_type?: string | null
+          is_read?: boolean | null
           created_at?: string | null
         }
         Update: {
           id?: string
-          consultation_id?: string
-          sender_id?: string
+          name?: string
+          email?: string
           message?: string
-          message_type?: string | null
-          created_at?: string | null
-        }
-      }
-      consultations: {
-        Row: {
-          id: string
-          user_id: string
-          astrologer_id: string
-          type: string
-          status: string | null
-          duration_minutes: number | null
-          total_amount: number | null
-          started_at: string | null
-          ended_at: string | null
-          created_at: string | null
-        }
-        Insert: {
-          id?: string
-          user_id: string
-          astrologer_id: string
-          type: string
-          status?: string | null
-          duration_minutes?: number | null
-          total_amount?: number | null
-          started_at?: string | null
-          ended_at?: string | null
-          created_at?: string | null
-        }
-        Update: {
-          id?: string
-          user_id?: string
-          astrologer_id?: string
-          type?: string
-          status?: string | null
-          duration_minutes?: number | null
-          total_amount?: number | null
-          started_at?: string | null
-          ended_at?: string | null
+          is_read?: boolean | null
           created_at?: string | null
         }
       }
@@ -229,47 +179,6 @@ export type Database = {
           longitude?: number | null
           timezone?: string | null
           chart_data?: Json | null
-          created_at?: string | null
-        }
-      }
-      match_results: {
-        Row: {
-          id: string
-          user_id: string | null
-          boy_kundli_id: string
-          girl_kundli_id: string
-          total_score: number | null
-          guna_scores: number[] | null
-          is_boy_manglik: boolean | null
-          is_girl_manglik: boolean | null
-          recommendation: string | null
-          detailed_analysis: Json | null
-          created_at: string | null
-        }
-        Insert: {
-          id?: string
-          user_id?: string | null
-          boy_kundli_id: string
-          girl_kundli_id: string
-          total_score?: number | null
-          guna_scores?: number[] | null
-          is_boy_manglik?: boolean | null
-          is_girl_manglik?: boolean | null
-          recommendation?: string | null
-          detailed_analysis?: Json | null
-          created_at?: string | null
-        }
-        Update: {
-          id?: string
-          user_id?: string | null
-          boy_kundli_id?: string
-          girl_kundli_id?: string
-          total_score?: number | null
-          guna_scores?: number[] | null
-          is_boy_manglik?: boolean | null
-          is_girl_manglik?: boolean | null
-          recommendation?: string | null
-          detailed_analysis?: Json | null
           created_at?: string | null
         }
       }
@@ -412,52 +321,11 @@ export type Database = {
           created_at?: string | null
         }
       }
-      payments: {
-        Row: {
-          id: string
-          user_id: string
-          consultation_id: string | null
-          amount: number
-          currency: string | null
-          payment_method: string | null
-          payment_status: string | null
-          transaction_id: string | null
-          created_at: string | null
-        }
-        Insert: {
-          id?: string
-          user_id: string
-          consultation_id?: string | null
-          amount: number
-          currency?: string | null
-          payment_method?: string | null
-          payment_status?: string | null
-          transaction_id?: string | null
-          created_at?: string | null
-        }
-        Update: {
-          id?: string
-          user_id?: string
-          consultation_id?: string | null
-          amount?: number
-          currency?: string | null
-          payment_method?: string | null
-          payment_status?: string | null
-          transaction_id?: string | null
-          created_at?: string | null
-        }
-      }
       profiles: {
         Row: {
           id: string
           full_name: string | null
           avatar_url: string | null
-          phone: string | null
-          date_of_birth: string | null
-          time_of_birth: string | null
-          place_of_birth: string | null
-          gender: string | null
-          preferred_language: string | null
           created_at: string | null
           updated_at: string | null
         }
@@ -465,12 +333,6 @@ export type Database = {
           id: string
           full_name?: string | null
           avatar_url?: string | null
-          phone?: string | null
-          date_of_birth?: string | null
-          time_of_birth?: string | null
-          place_of_birth?: string | null
-          gender?: string | null
-          preferred_language?: string | null
           created_at?: string | null
           updated_at?: string | null
         }
@@ -478,93 +340,6 @@ export type Database = {
           id?: string
           full_name?: string | null
           avatar_url?: string | null
-          phone?: string | null
-          date_of_birth?: string | null
-          time_of_birth?: string | null
-          place_of_birth?: string | null
-          gender?: string | null
-          preferred_language?: string | null
-          created_at?: string | null
-          updated_at?: string | null
-        }
-      }
-      reviews: {
-        Row: {
-          id: string
-          user_id: string
-          astrologer_id: string
-          consultation_id: string | null
-          rating: number
-          comment: string | null
-          created_at: string | null
-        }
-        Insert: {
-          id?: string
-          user_id: string
-          astrologer_id: string
-          consultation_id?: string | null
-          rating: number
-          comment?: string | null
-          created_at?: string | null
-        }
-        Update: {
-          id?: string
-          user_id?: string
-          astrologer_id?: string
-          consultation_id?: string | null
-          rating?: number
-          comment?: string | null
-          created_at?: string | null
-        }
-      }
-      wallet_transactions: {
-        Row: {
-          id: string
-          wallet_id: string
-          type: string
-          amount: number
-          description: string | null
-          reference_id: string | null
-          created_at: string | null
-        }
-        Insert: {
-          id?: string
-          wallet_id: string
-          type: string
-          amount: number
-          description?: string | null
-          reference_id?: string | null
-          created_at?: string | null
-        }
-        Update: {
-          id?: string
-          wallet_id?: string
-          type?: string
-          amount?: number
-          description?: string | null
-          reference_id?: string | null
-          created_at?: string | null
-        }
-      }
-      wallets: {
-        Row: {
-          id: string
-          user_id: string
-          balance: number | null
-          created_at: string | null
-          updated_at: string | null
-        }
-        Insert: {
-          id?: string
-          user_id: string
-          balance?: number | null
-          created_at?: string | null
-          updated_at?: string | null
-        }
-        Update: {
-          id?: string
-          user_id?: string
-          balance?: number | null
           created_at?: string | null
           updated_at?: string | null
         }
