@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, X, User, Wallet, Phone, ChevronDown, LogOut } from 'lucide-react';
+import { Menu, X, User, Phone, ChevronDown, LogOut, CreditCard } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/useAuth';
 import { AuthModal } from '@/components/auth/AuthModal';
@@ -40,10 +40,10 @@ const Header = () => {
             </div>
             <div className="flex flex-col">
               <span className="text-lg lg:text-xl font-bold text-foreground">
-                {language === 'en' ? 'JyotishGuru' : 'ज्योतिषगुरु'}
+                {language === 'en' ? 'AstroRishabh' : 'एस्ट्रो ऋषभ'}
               </span>
               <span className="text-[10px] lg:text-xs text-muted-foreground -mt-1">
-                {language === 'en' ? 'Divine Guidance' : 'दिव्य मार्गदर्शन'}
+                {language === 'en' ? 'Astrology Guidance' : 'ज्योतिष मार्गदर्शन'}
               </span>
             </div>
           </Link>
@@ -78,9 +78,12 @@ const Header = () => {
               {language === 'en' ? 'हिंदी' : 'EN'}
             </button>
 
-            {/* Wallet */}
-            <Button variant="ghost" size="icon" className="hidden sm:flex">
-              <Wallet className="w-5 h-5" />
+            {/* Payment Button */}
+            <Button variant="outline" size="sm" className="hidden md:flex" asChild>
+              <Link to="/payment">
+                <CreditCard className="w-4 h-4" />
+                <span>{language === 'en' ? 'Add Money' : 'पैसे जोड़ें'}</span>
+              </Link>
             </Button>
 
             {/* Login/Profile */}
@@ -151,6 +154,12 @@ const Header = () => {
                     {language === 'en' ? 'Login' : 'लॉगिन'}
                   </Button>
                 )}
+                <Button variant="outline" className="flex-1" asChild>
+                  <Link to="/payment">
+                    <CreditCard className="w-4 h-4" />
+                    {language === 'en' ? 'Payment' : 'पेमेंट'}
+                  </Link>
+                </Button>
                 <Button variant="saffron" className="flex-1" asChild>
                   <Link to="/contact">
                     <Phone className="w-4 h-4" />

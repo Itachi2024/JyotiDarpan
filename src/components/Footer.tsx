@@ -18,23 +18,28 @@ const Footer = () => {
     { label: 'Free Kundli', href: '/kundli' },
     { label: 'Match Making', href: '/match-making' },
     { label: 'Panchang', href: '/panchang' },
-    { label: 'Muhurat', href: '/muhurat' },
   ];
 
   const services = [
     { label: 'Talk to Astrologer', href: '/astrologers' },
     { label: 'Chat with Astrologer', href: '/astrologers' },
     // { label: 'Video Consultation', href: '/video' },
-    { label: 'AI Astrology Bot', href: '/ai-bot' },
+    { label: 'Secure Payment', href: '/payment' },
     { label: 'Astro Shop', href: '/shop' },
   ];
 
   const resources = [
-    { label: 'Blog', href: '/blog' },
+    { label: 'WhatsApp Community', href: 'https://chat.whatsapp.com/your_whatsapp_community_link' },
     { label: 'Hindu Calendar', href: 'https://www.drikpanchang.com/calendars/hindu/hinducalendar.html' },
     { label: 'Remedies', href: '/remedies' },
     { label: 'Gemstones', href: '/shop' },
-    // { label: 'About Us', href: '/about' },
+  ];
+
+  const legal = [
+    { label: 'Terms of Service', href: '/terms' },
+    { label: 'Privacy Policy', href: '/privacy' },
+    { label: 'Refund Policy', href: '/refund' },
+    { label: 'Disclaimer', href: '/disclaimer' },
   ];
 
   return (
@@ -66,29 +71,29 @@ const Footer = () => {
         </div>
 
         {/* Main Footer Content */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12 mb-12">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-12">
           {/* Brand */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-1">
             <Link to="/" className="flex items-center gap-2 mb-4">
               <div className="w-12 h-12 rounded-full bg-gradient-saffron flex items-center justify-center shadow-soft">
                 <span className="text-white text-2xl font-bold">ॐ</span>
               </div>
               <div className="flex flex-col">
-                <span className="text-xl font-bold text-white">JyotishGuru</span>
-                <span className="text-xs text-white/60">ज्योतिषगुरु</span>
+                <span className="text-xl font-bold text-white">AstroRishabh</span>
+                <span className="text-xs text-white/60">एस्ट्रो ऋषभ</span>
               </div>
             </Link>
             <p className="text-white/70 mb-6 max-w-sm">
               India's most trusted astrology platform. Connect with experienced astrologers for guidance on life, career, relationships, and more.
             </p>
             <div className="space-y-2">
-              <a href="tel:+911234567890" className="flex items-center gap-2 text-white/70 hover:text-white transition-colors">
+              <a href="tel:+919799104619" className="flex items-center gap-2 text-white/70 hover:text-white transition-colors">
                 <Phone className="w-4 h-4" />
-              +91 97991 04619
+                +91 97991 04619
               </a>
-              <a href="mailto: shreedarshanjyoti@gmail.com" className="flex items-center gap-2 text-white/70 hover:text-white transition-colors">
+              <a href="mailto:rishabhdadhich21@gmail.com" className="flex items-center gap-2 text-white/70 hover:text-white transition-colors">
                 <Mail className="w-4 h-4" />
-                shreedarshanjyoti@gmail.com
+                rishabhdadhich21@gmail.com
               </a>
               <p className="flex items-center gap-2 text-white/70">
                 <MapPin className="w-4 h-4" />
@@ -133,9 +138,9 @@ const Footer = () => {
             <ul className="space-y-2">
               {resources.map((link) => (
                 <li key={link.href}>
-                  <Link to={link.href} className="text-white/70 hover:text-primary transition-colors">
+                  <a href={link.href} target={link.href.startsWith('http') ? '_blank' : '_self'} rel={link.href.startsWith('http') ? 'noopener noreferrer' : ''} className="text-white/70 hover:text-primary transition-colors">
                     {link.label}
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>
@@ -182,16 +187,16 @@ const Footer = () => {
 
             {/* Copyright */}
             <p className="text-white/60 text-sm">
-              © 2025 JyotishGuru. All rights reserved.
+              © 2025 AstroRishabh. All rights reserved.
             </p>
           </div>
 
           {/* Legal Links */}
           <div className="flex flex-wrap justify-center gap-4 mt-6">
-            {['Terms of Service', 'Privacy Policy', 'Refund Policy', 'Disclaimer'].map((link) => (
-              <a key={link} href="#" className="text-white/50 text-sm hover:text-white/80 transition-colors">
-                {link}
-              </a>
+            {legal.map((link) => (
+              <Link key={link.href} to={link.href} className="text-white/50 text-sm hover:text-white/80 transition-colors">
+                {link.label}
+              </Link>
             ))}
           </div>
         </div>

@@ -108,8 +108,6 @@ const Shop = () => {
       return matchesSearch && matchesCategory;
     })
     .sort((a, b) => {
-      if (sortBy === 'price-low') return a.price - b.price;
-      if (sortBy === 'price-high') return b.price - a.price;
       if (sortBy === 'rating') return b.rating - a.rating;
       return 0; // popular (default order)
     });
@@ -152,8 +150,6 @@ const Shop = () => {
               className="px-4 py-2 rounded-lg border border-input bg-background"
             >
               <option value="popular">Most Popular</option>
-              <option value="price-low">Price: Low to High</option>
-              <option value="price-high">Price: High to Low</option>
               <option value="rating">Highest Rated</option>
             </select>
 
@@ -203,11 +199,6 @@ const Shop = () => {
                 <button className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 flex items-center justify-center hover:bg-white transition-colors">
                   <Heart className="w-4 h-4 text-muted-foreground hover:text-red-500" />
                 </button>
-                {product.originalPrice > product.price && (
-                  <div className="absolute top-3 left-3 px-2 py-1 bg-red-500 text-white text-xs font-medium rounded-full">
-                    {Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}% OFF
-                  </div>
-                )}
               </div>
 
               {/* Product Info */}
@@ -233,16 +224,6 @@ const Shop = () => {
                       {benefit}
                     </span>
                   ))}
-                </div>
-
-                {/* Price */}
-                <div className="flex items-center gap-2">
-                  <span className="text-xl font-bold text-primary">₹{product.price.toLocaleString()}</span>
-                  {product.originalPrice > product.price && (
-                    <span className="text-sm text-muted-foreground line-through">
-                      ₹{product.originalPrice.toLocaleString()}
-                    </span>
-                  )}
                 </div>
 
                 {/* Actions */}

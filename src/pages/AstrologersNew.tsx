@@ -1,412 +1,254 @@
-import { useState, useEffect } from 'react';
-import { Star, Phone, MessageCircle, Video, CheckCircle, Clock, Filter, Search, ChevronDown, Mail } from 'lucide-react';
+import { useState } from 'react';
+import { Star, Phone, MessageCircle, CheckCircle, Users, Award, Clock } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { supabase } from '@/integrations/supabase/client';
-import { useAuth } from '@/hooks/useAuth';
-import { toast } from 'sonner';
+import astrologerImg from '@/assets/vinu.jpg';
 
 interface Astrologer {
   id: string;
   name: string;
   english_name: string | null;
-  avatar_url: string | null;
-  photo_url: string | null;
   specialties: string[] | null;
   experience_years: number | null;
   rating: number | null;
   total_reviews: number | null;
-  price_per_minute: number;
   languages: string[] | null;
   is_verified: boolean | null;
-  total_consultations: number | null;
   description: string | null;
-  is_admin: boolean | null;
   whatsapp_number: string | null;
   email_address: string | null;
-  availability_status: string | null;
 }
 
-const Astrologers = () => {
-  const [astrologers, setAstrologers] = useState<Astrologer[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedSpecialty, setSelectedSpecialty] = useState('All');
-  const [isCurrentUserAdmin, setIsCurrentUserAdmin] = useState(false);
-  const { user } = useAuth();
+const WHATSAPP_NUMBER = "+919799104619";
+const MESSAGE = encodeURIComponent("नमस्ते पंडित जी, मुझे ज्योतिष परामर्श चाहिए।");
+const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}?text=${MESSAGE}`;
 
-  const specialties = ['All', 'Vedic Astrology', 'Kundli', 'Numerology', 'Vastu', 'Tarot', 'Palmistry', 'Career', 'Love', 'Marriage'];
+const AstrologersNew = () => {
+  const [selectedSpecialty, setSelectedSpecialty] = useState<string>('all');
 
-  useEffect(() => {
-    fetchAstrologers();
-    checkCurrentUserAdmin();
-  }, [user]);
-
-  const fetchAstrologers = async () => {
-    try {
-      console.log('Fetching astrologers from database...');
-      
-      // First try to fetch from database
-      const { data, error } = await supabase
-        .from('astrologers')
-        .select('*')
-        .eq('is_verified', true)
-        .order('rating', { ascending: false });
-
-      if (error) {
-        console.error('Database error:', error);
-        console.log('Using fallback astrologers data');
-        setAstrologers(getFallbackAstrologers());
-      } else if (data && data.length > 0) {
-        console.log('Successfully loaded astrologers from database:', data.length);
-        setAstrologers(data);
-      } else {
-        console.log('No astrologers found in database, using fallback data');
-        setAstrologers(getFallbackAstrologers());
-      }
-    } catch (error) {
-      console.error('Error fetching astrologers:', error);
-      console.log('Using fallback astrologers data due to error');
-      setAstrologers(getFallbackAstrologers());
-      toast.info('Loading demo astrologer profiles');
-    } finally {
-      setLoading(false);
-    }
+  // Simplified astrologer data
+  const astrologer: Astrologer = {
+    id: '1',
+    name: 'पंडित ऋषभ दाधीच',
+    english_name: 'Pt. Rishabh Dadhich',
+    specialties: ['Vedic Astrology', 'Kundli Analysis', 'Career Guidance', 'Relationship Advice'],
+    experience_years: 5,
+    rating: 4.9,
+    total_reviews: 2340,
+    languages: ['Hindi', 'English'],
+    is_verified: true,
+    description: 'Expert Vedic astrologer with 5+ years of experience. Specialized in career guidance, relationship advice, and life predictions using traditional Vedic methods.',
+    whatsapp_number: '+919799104619',
+    email_address: 'rishabhdadhich21@gmail.com'
   };
 
-  const getFallbackAstrologers = (): Astrologer[] => [
+  const specialties = ['all', 'Vedic Astrology', 'Kundli Analysis', 'Career Guidance', 'Relationship Advice'];
+
+  const trustFeatures = [
     {
-      id: '1',
-      name: 'पंडित ऋषभ दाधीच',
-      english_name: 'Pt. Rishabh Dadhich',
-      avatar_url: null,
-      photo_url: null,
-      specialties: ['Vedic Astrology', 'Kundli', 'Career'],
-      experience_years: 15,
-      rating: 4.9,
-      total_reviews: 2340,
-      price_per_minute: 25,
-      languages: ['Hindi', 'English'],
-      is_verified: true,
-      total_consultations: 15000,
-      description: 'Expert in Vedic astrology with 15+ years of experience. Specialized in career guidance and relationship issues.',
-      is_admin: true,
-      whatsapp_number: '+91 9799104619',
-      email_address: 'shreedarshanjyoti@gmail.com',
-      availability_status: 'online'
+      icon: CheckCircle,
+      title: "सत्यापित ज्योतिषी",
+      description: "प्रमाणित और अनुभवी पेशेवर"
     },
     {
-      id: '2',
-      name: 'पंडित अशोक दाधीच',
-      english_name: 'Acharya Ashok Dadhich',
-      avatar_url: null,
-      photo_url: null,
-      specialties: ['Numerology', 'Vastu', 'Remedies'],
-      experience_years: 20,
-      rating: 4.8,
-      total_reviews: 3120,
-      price_per_minute: 35,
-      languages: ['Hindi', 'Sanskrit'],
-      is_verified: true,
-      total_consultations: 22000,
-      description: 'Renowned numerologist and Vastu expert. Known for providing effective remedies.',
-      is_admin: true,
-      whatsapp_number: '+91 9799104619',
-      email_address: 'shreedarshanjyoti@gmail.com',
-      availability_status: 'online'
+      icon: Users,
+      title: "2000+ खुश ग्राहक",
+      description: "भारत भर में हजारों लोगों का भरोसा"
+    },
+    {
+      icon: Award,
+      title: "5+ साल का अनुभव",
+      description: "वैदिक ज्योतिष का गहरा ज्ञान"
+    },
+    {
+      icon: Clock,
+      title: "रोज उपलब्ध",
+      description: "आपके प्रश्नों की सहायता के लिए तैयार"
     }
   ];
-
-  const checkCurrentUserAdmin = async () => {
-    if (!user) return;
-    
-    try {
-      const { data, error } = await supabase
-        .from('astrologers')
-        .select('is_admin')
-        .eq('user_id', user.id)
-        .single();
-      
-      if (data && !error) {
-        setIsCurrentUserAdmin(data.is_admin);
-      }
-    } catch (error) {
-      console.error('Error checking admin status:', error);
-    }
-  };
-
-  const updateAvailability = async (astrologerId: string, newStatus: string) => {
-    try {
-      const { data, error } = await supabase.rpc('update_astrologer_availability', {
-        astrologer_id: astrologerId,
-        new_status: newStatus
-      });
-
-      if (error) throw error;
-      
-      toast.success('Availability updated successfully');
-      fetchAstrologers();
-    } catch (error) {
-      console.error('Error updating availability:', error);
-      toast.error('Failed to update availability');
-    }
-  };
-
-  const handleWhatsAppContact = (whatsappNumber: string, astrologerName: string) => {
-    if (!whatsappNumber) {
-      toast.error('WhatsApp number not available');
-      return;
-    }
-    
-    const message = encodeURIComponent(`Hello ${astrologerName}, I would like to consult with you regarding astrology services.`);
-    const whatsappUrl = `https://wa.me/${whatsappNumber.replace(/[^0-9]/g, '')}?text=${message}`;
-    window.open(whatsappUrl, '_blank');
-  };
-
-  const handleEmailContact = (email: string, astrologerName: string) => {
-    if (!email) {
-      toast.error('Email address not available');
-      return;
-    }
-    
-    const subject = encodeURIComponent('Astrology Consultation Request');
-    const body = encodeURIComponent(`Dear ${astrologerName},\n\nI would like to schedule a consultation with you. Please let me know your availability.\n\nThank you.`);
-    const emailUrl = `mailto:${email}?subject=${subject}&body=${body}`;
-    window.open(emailUrl, '_blank');
-  };
-
-  const filteredAstrologers = astrologers.filter((astrologer) => {
-    const matchesSearch = astrologer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      (astrologer.english_name && astrologer.english_name.toLowerCase().includes(searchTerm.toLowerCase())) ||
-      (astrologer.specialties && astrologer.specialties.some(s => s.toLowerCase().includes(searchTerm.toLowerCase())));
-    const matchesSpecialty = selectedSpecialty === 'All' || 
-      (astrologer.specialties && astrologer.specialties.includes(selectedSpecialty));
-    return matchesSearch && matchesSpecialty;
-  });
-
-  const getStatusColor = (status: string | null) => {
-    switch (status) {
-      case 'online': return 'bg-green-500';
-      case 'busy': return 'bg-amber-500';
-      case 'offline': return 'bg-gray-400';
-      default: return 'bg-gray-400';
-    }
-  };
-
-  const getStatusText = (status: string | null) => {
-    switch (status) {
-      case 'online': return 'Online';
-      case 'busy': return 'Busy';
-      case 'offline': return 'Offline';
-      default: return 'Offline';
-    }
-  };
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-background">
-        <Header />
-        <main className="container mx-auto px-4 py-8">
-          <div className="animate-pulse space-y-6">
-            <div className="h-32 bg-muted rounded-lg" />
-            <div className="grid md:grid-cols-2 gap-6">
-              {[1, 2].map((i) => (
-                <div key={i} className="h-64 bg-muted rounded-lg" />
-              ))}
-            </div>
-          </div>
-        </main>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-background">
       <Header />
       
       <main className="container mx-auto px-4 py-8">
-        {/* Page Header */}
-        <div className="text-center mb-10">
+        {/* Header Section */}
+        <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 mb-4">
-            <Phone className="w-4 h-4 text-primary" />
-            <span className="text-sm font-medium text-primary">Expert Astrologers</span>
+            <Star className="w-4 h-4 text-primary" />
+            <span className="text-sm font-medium text-primary font-hindi">विशेषज्ञ ज्योतिषी</span>
           </div>
-          <h1 className="text-3xl lg:text-5xl font-bold text-foreground mb-2">
-            <span className="text-shimmer">अनुभवी</span> ज्योतिषी
+          <h1 className="text-3xl lg:text-4xl font-bold mb-4 font-hindi">
+            हमारे <span className="text-primary">सत्यापित ज्योतिषी</span> से बात करें
           </h1>
-          <p className="text-muted-foreground">Connect with our expert astrologers • Available via WhatsApp & Email</p>
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            अपने जीवन के सभी प्रश्नों के लिए हमारे अनुभवी वैदिक ज्योतिषी से व्यक्तिगत मार्गदर्शन प्राप्त करें
+          </p>
         </div>
 
-        {/* Search & Filters */}
-        <div className="mb-8 space-y-4">
-          <div className="flex flex-col md:flex-row gap-4">
-            {/* Search */}
-            <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-              <Input
-                placeholder="Search astrologers by name or specialty..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10"
-              />
+        {/* Specialty Filter */}
+        <div className="flex flex-wrap justify-center gap-2 mb-8">
+          {specialties.map((specialty) => (
+            <button
+              key={specialty}
+              onClick={() => setSelectedSpecialty(specialty)}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                selectedSpecialty === specialty
+                  ? 'bg-primary text-primary-foreground'
+                  : 'bg-muted hover:bg-primary/10 text-muted-foreground hover:text-primary'
+              }`}
+            >
+                            {specialty === 'all' ? 'सभी सेवाएं' : specialty}
+            </button>
+          ))}
+        </div>
+
+        {/* Main Astrologer Card */}
+        <div className="max-w-4xl mx-auto">
+          <div className="card-spiritual p-8">
+            <div className="grid lg:grid-cols-2 gap-8 items-center">
+              {/* Astrologer Image */}
+              <div className="relative">
+                <div className="absolute -inset-4 bg-gradient-saffron opacity-20 blur-2xl rounded-3xl" />
+                <img
+                  src={astrologerImg}
+                  alt={astrologer.english_name || astrologer.name}
+                  className="relative z-10 rounded-3xl shadow-elevated object-cover w-full max-h-[400px]"
+                />
+              </div>
+
+              {/* Astrologer Info */}
+              <div>
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-100 text-green-700 text-sm mb-4">
+                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                  <span className="font-hindi">अभी उपलब्ध</span>
+                </div>
+
+                <h2 className="text-2xl lg:text-3xl font-bold text-foreground mb-2 font-hindi">
+                  {astrologer.name}
+                </h2>
+                <p className="text-muted-foreground mb-3">
+                  {astrologer.english_name}
+                </p>
+
+                {/* Rating */}
+                <div className="flex items-center gap-2 mb-4">
+                  <Star className="w-5 h-5 text-accent fill-accent" />
+                  <span className="font-semibold text-lg">{astrologer.rating}</span>
+                  <span className="text-muted-foreground">({astrologer.total_reviews}+ reviews)</span>
+                </div>
+
+                {/* Specialties */}
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {astrologer.specialties?.map((specialty, index) => (
+                    <span key={index} className="px-3 py-1 rounded-full bg-primary/10 text-primary text-sm">
+                      {specialty}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Languages */}
+                <div className="flex items-center gap-2 mb-4">
+                  <span className="text-sm text-muted-foreground font-hindi">भाषाएं:</span>
+                  <div className="flex gap-2">
+                    {astrologer.languages?.map((lang, index) => (
+                      <span key={index} className="px-2 py-1 rounded bg-muted text-sm">
+                        {lang === 'Hindi' ? 'हिंदी' : lang === 'English' ? 'अंग्रेजी' : lang}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Description */}
+                <p className="text-muted-foreground mb-6 leading-relaxed">
+                  {astrologer.description}
+                </p>
+
+                {/* Action Buttons */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <a
+                    href={WHATSAPP_LINK}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Button variant="hero" size="lg" className="w-full whitespace-nowrap">
+                      <Phone className="w-5 h-5" />
+                      <span className="font-hindi">अभी कॉल करें</span>
+                    </Button>
+                  </a>
+                  <a
+                    href={WHATSAPP_LINK}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Button variant="spiritual" size="lg" className="w-full whitespace-nowrap">
+                      <MessageCircle className="w-5 h-5" />
+                      <span className="font-hindi">व्हाट्सऐप पर चैट</span>
+                    </Button>
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
+        </div>
 
-          {/* Specialty Filters */}
-          <div className="flex flex-wrap gap-2 p-4 rounded-xl bg-muted/50">
-            {specialties.map((spec) => (
-              <button
-                key={spec}
-                onClick={() => setSelectedSpecialty(spec)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                  selectedSpecialty === spec
-                    ? 'bg-primary text-white'
-                    : 'bg-card border border-border hover:border-primary'
-                }`}
-              >
-                {spec}
-              </button>
+        {/* Trust Features */}
+        <div className="mt-12">
+          <h2 className="text-2xl font-bold text-center mb-8 font-hindi">हमारे ज्योतिषी को क्यों चुनें?</h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl mx-auto">
+            {trustFeatures.map((feature, index) => (
+              <div key={index} className="text-center">
+                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                  <feature.icon className="w-8 h-8 text-primary" />
+                </div>
+                <h3 className="font-semibold mb-2">{feature.title}</h3>
+                <p className="text-sm text-muted-foreground">{feature.description}</p>
+              </div>
             ))}
           </div>
         </div>
 
-        {/* Astrologer Grid */}
-        <div className="grid md:grid-cols-2 gap-6">
-          {filteredAstrologers.map((astrologer) => (
-            <div key={astrologer.id} className="card-spiritual p-6 hover:shadow-elevated transition-all">
-              {/* Header with Avatar & Status */}
-              <div className="flex items-start gap-4 mb-4">
-                <div className="relative">
-                  <div className="w-20 h-20 rounded-full bg-gradient-saffron flex items-center justify-center text-white text-2xl font-bold overflow-hidden">
-                    {astrologer.photo_url ? (
-                      <img src={astrologer.photo_url} alt={astrologer.name} className="w-full h-full object-cover" />
-                    ) : (
-                      astrologer.name.charAt(0)
-                    )}
-                  </div>
-                  <div className={`absolute -bottom-1 -right-1 w-6 h-6 rounded-full border-2 border-card flex items-center justify-center ${getStatusColor(astrologer.availability_status)}`}>
-                    {astrologer.availability_status === 'online' ? (
-                      <span className="w-3 h-3 rounded-full bg-white" />
-                    ) : (
-                      <Clock className="w-3 h-3 text-white" />
-                    )}
-                  </div>
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center gap-1 mb-1">
-                    <h3 className="font-semibold text-foreground font-hindi">{astrologer.name}</h3>
-                    {astrologer.is_verified && <CheckCircle className="w-4 h-4 text-primary" />}
-                  </div>
-                  <p className="text-sm text-muted-foreground">{astrologer.english_name}</p>
-                  <div className="flex items-center gap-2 mt-1">
-                    <Star className="w-4 h-4 text-accent fill-accent" />
-                    <span className="text-sm font-medium">{astrologer.rating}</span>
-                    <span className="text-xs text-muted-foreground">({astrologer.total_reviews} reviews)</span>
-                  </div>
-                  <div className="flex items-center gap-2 mt-1">
-                    <span className={`px-2 py-0.5 rounded-full text-xs font-medium text-white ${getStatusColor(astrologer.availability_status)}`}>
-                      {getStatusText(astrologer.availability_status)}
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Specialties */}
-              <div className="flex flex-wrap gap-1 mb-3">
-                {astrologer.specialties?.map((spec) => (
-                  <span key={spec} className="px-2 py-0.5 rounded-full bg-primary/10 text-xs text-primary">
-                    {spec}
-                  </span>
-                ))}
-              </div>
-
-              {/* Stats */}
-              <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">
-                <span>{astrologer.experience_years}+ years</span>
-                <span>•</span>
-                <span>{astrologer.total_consultations?.toLocaleString()}+ consultations</span>
-              </div>
-
-              {/* Languages */}
-              <p className="text-sm text-muted-foreground mb-4">
-                Languages: {astrologer.languages?.join(', ')}
-              </p>
-
-              {/* Description */}
-              <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
-                {astrologer.description}
-              </p>
-
-              {/* Price & Contact Actions */}
-              <div className="flex items-center justify-between pt-4 border-t border-border">
-                <div>
-                  <span className="text-2xl font-bold text-primary">₹{astrologer.price_per_minute}</span>
-                  <span className="text-sm text-muted-foreground">/min</span>
-                </div>
-                <div className="flex gap-2">
-                  <Button 
-                    variant="spiritual" 
-                    size="sm"
-                    onClick={() => handleWhatsAppContact(astrologer.whatsapp_number || '', astrologer.name)}
-                    disabled={!astrologer.whatsapp_number}
-                  >
-                    <MessageCircle className="w-4 h-4 mr-1" />
-                    WhatsApp
-                  </Button>
-                  <Button 
-                    variant="saffron" 
-                    size="sm"
-                    onClick={() => handleEmailContact(astrologer.email_address || '', astrologer.name)}
-                    disabled={!astrologer.email_address}
-                  >
-                    <Mail className="w-4 h-4 mr-1" />
-                    Email
-                  </Button>
-                </div>
-              </div>
-
-              {/* Admin Controls */}
-              {isCurrentUserAdmin && astrologer.id && (
-                <div className="mt-4 pt-4 border-t border-border">
-                  <p className="text-xs text-muted-foreground mb-2">Admin Controls:</p>
-                  <div className="flex gap-2">
-                    {['online', 'busy', 'offline'].map((status) => (
-                      <Button
-                        key={status}
-                        size="sm"
-                        variant={astrologer.availability_status === status ? "default" : "outline"}
-                        onClick={() => updateAvailability(astrologer.id, status)}
-                        className="text-xs"
-                      >
-                        {status.charAt(0).toUpperCase() + status.slice(1)}
-                      </Button>
-                    ))}
-                  </div>
-                </div>
-              )}
+        {/* Services Section */}
+        <div className="mt-12 text-center">
+          <h2 className="text-2xl font-bold mb-6 font-hindi">हमारी सेवाएं</h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
+            <div className="card-spiritual p-6">
+              <h3 className="font-semibold mb-2 font-hindi">व्यक्तिगत परामर्श</h3>
+              <p className="text-sm text-muted-foreground">आपके जीवन के प्रश्नों के लिए एक-से-एक मार्गदर्शन</p>
             </div>
-          ))}
+            <div className="card-spiritual p-6">
+              <h3 className="font-semibold mb-2 font-hindi">कुंडली विश्लेषण</h3>
+              <p className="text-sm text-muted-foreground">संपूर्ण जन्म कुंडली पठन और विश्लेषण</p>
+            </div>
+            <div className="card-spiritual p-6">
+              <h3 className="font-semibold mb-2 font-hindi">करियर मार्गदर्शन</h3>
+              <p className="text-sm text-muted-foreground">करियर के लिए पेशेवर ज्योतिष सलाह</p>
+            </div>
+          </div>
         </div>
 
-        {filteredAstrologers.length === 0 && (
-          <div className="text-center py-12">
-            <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center mx-auto mb-4">
-              <Phone className="w-8 h-8 text-muted-foreground" />
+        {/* Contact CTA */}
+        <div className="mt-12 text-center">
+          <div className="card-spiritual p-8 bg-gradient-to-r from-primary/5 to-accent/5">
+            <h2 className="text-2xl font-bold mb-4 font-hindi">मार्गदर्शन लेने के लिए तैयार हैं?</h2>
+            <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
+              व्यक्तिगत परामर्श और जीवन मार्गदर्शन के लिए अभी हमारे विशेषज्ञ ज्योतिषी से जुड़ें
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
+              <Link to="/contact" className="flex-1">
+                <Button variant="hero" size="lg" className="w-full font-hindi">
+                  अभी संपर्क करें
+                </Button>
+              </Link>
+              <Link to="/payment" className="flex-1">
+                <Button variant="spiritual" size="lg" className="w-full font-hindi">
+                  सुरक्षित भुगतान
+                </Button>
+              </Link>
             </div>
-            <h3 className="text-lg font-semibold mb-2">No astrologers found</h3>
-            <p className="text-muted-foreground">Try adjusting your search or filters</p>
           </div>
-        )}
-
-        {/* Bottom CTA */}
-        <div className="mt-12 p-6 lg:p-10 rounded-2xl bg-gradient-saffron text-white text-center">
-          <h2 className="text-2xl lg:text-3xl font-bold mb-2">Need Immediate Guidance? 🌟</h2>
-          <p className="text-white/80 mb-6">Our expert astrologers are available via WhatsApp and Email for personalized consultations</p>
-          <Button variant="gold" size="xl" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-            Contact Our Astrologers
-          </Button>
         </div>
       </main>
 
@@ -415,4 +257,4 @@ const Astrologers = () => {
   );
 };
 
-export default Astrologers;
+export default AstrologersNew;

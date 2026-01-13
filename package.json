@@ -10,9 +10,7 @@
     "build:prod": "vite build --mode production",
     "lint": "eslint .",
     "preview": "vite preview",
-    "deploy": "npm run build:prod && ./deploy.sh",
-    "db:migrate": "echo 'Please run SQL files manually in Supabase dashboard'",
-    "functions:deploy": "supabase functions deploy --no-verify-jwt",
+    "deploy": "npm run build:prod && echo 'Build complete! Upload dist/ folder to your web server'",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
@@ -66,7 +64,8 @@
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
     "vaul": "^0.9.9",
-    "zod": "^3.25.76"
+    "zod": "^3.25.76",
+    "deno":"2.6.4"
   },
   "devDependencies": {
     "@eslint/js": "^9.32.0",

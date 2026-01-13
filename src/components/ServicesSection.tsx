@@ -7,8 +7,7 @@ import {
   MessageCircle, 
   Gem, 
   BookOpen,
-  Sparkles,
-  IndianRupee
+  Sparkles
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -18,7 +17,6 @@ const services = [
     title: 'कुंडली',
     english: 'Kundli',
     description: 'Get detailed birth chart analysis',
-    price: 'Free',
     href: '/kundli',
     color: 'bg-orange-500',
     gradient: 'from-orange-500 to-red-500',
@@ -28,7 +26,6 @@ const services = [
     title: 'कुंडली मिलान',
     english: 'Match Making',
     description: '36 Guna Milan for marriage',
-    price: 'Free',
     href: '/match-making',
     color: 'bg-pink-500',
     gradient: 'from-pink-500 to-rose-500',
@@ -38,7 +35,6 @@ const services = [
     title: 'मुहूर्त',
     english: 'Muhurta',
     description: 'Find auspicious timings',
-    price: '₹199',
     href: '/contact',
     color: 'bg-amber-500',
     gradient: 'from-amber-500 to-yellow-500',
@@ -48,7 +44,6 @@ const services = [
     title: 'राशिफल',
     english: 'Horoscope',
     description: 'Daily, weekly & monthly predictions',
-    price: 'Free',
     href: '/horoscope',
     color: 'bg-purple-500',
     gradient: 'from-purple-500 to-violet-500',
@@ -58,7 +53,6 @@ const services = [
     title: 'कॉल पर बात',
     english: 'Call Astrologer',
     description: 'Live voice consultation',
-    price: '₹25/min',
     href: '/contact',
     color: 'bg-green-500',
     gradient: 'from-green-500 to-emerald-500',
@@ -68,7 +62,6 @@ const services = [
     title: 'चैट',
     english: 'Chat',
     description: 'Text with astrologers',
-    price: '₹15/min',
     href: '/contact',
     color: 'bg-blue-500',
     gradient: 'from-blue-500 to-cyan-500',
@@ -78,7 +71,6 @@ const services = [
     title: 'रत्न दुकान',
     english: 'Astro Shop',
     description: 'Gemstones, Rudraksha & Yantra',
-    price: '₹500+',
     href: '/contact',
     color: 'bg-teal-500',
     gradient: 'from-teal-500 to-green-500',
@@ -88,7 +80,6 @@ const services = [
     title: 'उपाय',
     english: 'Remedies',
     description: 'Personalized solutions',
-    price: '₹299',
     href: '/contact',
     color: 'bg-indigo-500',
     gradient: 'from-indigo-500 to-purple-500',
@@ -138,20 +129,10 @@ const ServicesSection = () => {
                 {service.description}
               </p>
 
-              {/* Price */}
-              <div className="flex items-center justify-between">
-                <span className="text-sm lg:text-base font-bold text-primary flex items-center gap-1">
-                  {service.price === 'Free' ? (
-                    <span className="text-green-600">Free</span>
-                  ) : (
-                    <>
-                      <IndianRupee className="w-3 h-3 lg:w-4 lg:h-4" />
-                      {service.price.replace('₹', '')}
-                    </>
-                  )}
-                </span>
+              {/* Contact CTA */}
+              <div className="flex items-center justify-end">
                 <div className="text-primary text-xs lg:text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
-                  {service.price === 'Free' ? 'Try →' : 'Contact →'}
+                  Contact →
                 </div>
               </div>
             </Link>

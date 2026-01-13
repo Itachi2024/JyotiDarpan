@@ -1,27 +1,26 @@
 import { useState } from 'react';
-import { Sparkles, Search, BookOpen, Clock, Star, ChevronRight, IndianRupee, MessageCircle, Phone } from 'lucide-react';
+import { Sparkles, Search, BookOpen, Clock, Star, ChevronRight, MessageCircle, Phone } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
-import { RateChart } from '@/components/RateChart';
 
 const remedyCategories = [
-  { id: 'planetary', name: 'ग्रह उपाय', english: 'Planetary Remedies', icon: '🪐', count: 45, price: '₹599' },
-  { id: 'health', name: 'स्वास्थ्य उपाय', english: 'Health Remedies', icon: '🌿', count: 32, price: '₹499' },
-  { id: 'career', name: 'करियर उपाय', english: 'Career Remedies', icon: '💼', count: 28, price: '₹699' },
-  { id: 'love', name: 'प्रेम उपाय', english: 'Love Remedies', icon: '💕', count: 24, price: '₹549' },
-  { id: 'wealth', name: 'धन उपाय', english: 'Wealth Remedies', icon: '💰', count: 36, price: '₹799' },
-  { id: 'family', name: 'पारिवारिक उपाय', english: 'Family Remedies', icon: '👨‍👩‍👧‍👦', count: 19, price: '₹449' },
+  { id: 'planetary', name: 'ग्रह उपाय', english: 'Planetary Remedies', icon: '🪐', count: 45 },
+  { id: 'health', name: 'स्वास्थ्य उपाय', english: 'Health Remedies', icon: '🌿', count: 32 },
+  { id: 'career', name: 'करियर उपाय', english: 'Career Remedies', icon: '💼', count: 28 },
+  { id: 'love', name: 'प्रेम उपाय', english: 'Love Remedies', icon: '💕', count: 24 },
+  { id: 'wealth', name: 'धन उपाय', english: 'Wealth Remedies', icon: '💰', count: 36 },
+  { id: 'family', name: 'पारिवारिक उपाय', english: 'Family Remedies', icon: '👨‍👩‍👧‍👦', count: 19 },
 ];
 
 const Remedies = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
 
-  const handleContactRedirect = (category: string, price: string) => {
-    const message = encodeURIComponent(`Hello! I would like to get ${category} consultation (${price}). Please provide me with personalized remedies.`);
-    window.location.href = `/contact?service=remedies&category=${category}&price=${price}&message=${message}`;
+  const handleContactRedirect = (category: string) => {
+    const message = encodeURIComponent(`Hello! I would like to get ${category} consultation. Please provide me with personalized remedies.`);
+    window.location.href = `/contact?service=remedies&category=${category}&message=${message}`;
   };
 
   return (
@@ -41,16 +40,6 @@ const Remedies = () => {
           <p className="text-muted-foreground">Effective remedies for planetary doshas and life problems</p>
         </div>
 
-        {/* Pricing Banner */}
-        <div className="mb-8 p-6 rounded-xl bg-gradient-saffron text-white text-center">
-          <h2 className="text-xl font-bold mb-2">Personalized Remedy Consultation</h2>
-          <p className="text-white/80 mb-4">Get customized remedies based on your birth chart analysis</p>
-          <div className="flex items-center justify-center gap-2 text-2xl font-bold">
-            <IndianRupee className="w-6 h-6" />
-            <span>Starting from ₹449</span>
-          </div>
-        </div>
-
         {/* Categories */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-10">
           {remedyCategories.map((category) => (
@@ -60,16 +49,12 @@ const Remedies = () => {
             >
               <div className="text-3xl mb-2">{category.icon}</div>
               <h3 className="font-semibold text-sm font-hindi">{category.name}</h3>
-              <p className="text-xs text-muted-foreground mb-2">{category.english}</p>
-              <div className="text-sm font-bold text-primary flex items-center justify-center gap-1 mb-2">
-                <IndianRupee className="w-3 h-3" />
-                {category.price.replace('₹', '')}
-              </div>
+              <p className="text-xs text-muted-foreground mb-3">{category.english}</p>
               <Button 
                 variant="saffron" 
                 size="sm" 
                 className="w-full text-xs"
-                onClick={() => handleContactRedirect(category.english, category.price)}
+                onClick={() => handleContactRedirect(category.english)}
               >
                 <MessageCircle className="w-3 h-3 mr-1" />
                 Get Remedies
@@ -138,14 +123,6 @@ const Remedies = () => {
         </div>
 
         {/* Rate Chart */}
-        <div className="mb-8">
-          <RateChart 
-            title="Remedy Consultation Rates" 
-            showAll={false} 
-            filterServices={['Remedies & Solutions', 'Personal Consultation']} 
-          />
-        </div>
-
         {/* Popular Remedies Preview */}
         <div className="card-spiritual p-6 mb-8">
           <h2 className="text-xl font-semibold mb-4">Popular Remedy Categories</h2>
