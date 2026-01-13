@@ -89,7 +89,7 @@ const AstrologerSection = () => {
               >
                 <Button variant="hero" size="lg" className="w-full">
                   <Phone className="w-5 h-5" />
-                  Talk Now - ₹500 Consultation
+                  Talk Now - Consultation
                 </Button>
               </a>
 

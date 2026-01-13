@@ -2,14 +2,16 @@ import { useState } from 'react';
 import { QrCode, Shield, CheckCircle, Star, Users, Award, Clock } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import UPIQRCode from '@/components/UPIQRCode';
+import GenericUPIQR from '@/components/GenericUPIQR';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 const Payment = () => {
-  const [selectedAmount, setSelectedAmount] = useState(500);
+  const [selectedAmount, setSelectedAmount] = useState(100);
   const [showQR, setShowQR] = useState(false);
 
-  const predefinedAmounts = [100, 250, 500, 1000, 2000, 5000];
+  const predefinedAmounts = [100, 250, 1000, 2000, 5000];
 
   const trustFeatures = [
     {
@@ -66,7 +68,7 @@ const Payment = () => {
             Secure Payment Gateway
           </h1>
           <p className="text-muted-foreground text-lg">
-            Add money to your wallet for seamless astrology consultations
+            Scan the QR code below for instant payment, or select a specific amount for a custom QR
           </p>
         </div>
 
@@ -76,11 +78,72 @@ const Payment = () => {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <QrCode className="w-6 h-6 text-primary" />
-                Add Money to Wallet
+                UPI Payment Gateway
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
-              {/* Amount Selection */}
+              {/* Conditional QR Display */}
+              {!showQR ? (
+                <>
+                  {/* Generic UPI QR Code - Initial Display */}
+                  <GenericUPIQR 
+                    upiId="9799104619@ptsbi"
+                    merchantName="AstroRishabh"
+                  />
+                  
+                  {/* WhatsApp Community Link */}
+                  <div className="text-center p-4 bg-gradient-to-r from-green-50 to-green-100 rounded-lg border border-green-200">
+                    <p className="text-sm text-green-800 mb-2">
+                      📱 Join our WhatsApp Community for updates & tips
+                    </p>
+                    <a 
+                      href="https://chat.whatsapp.com/Crta3YFj4MfFlv1HxLMIsq"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-green-600 hover:text-green-700 font-medium text-sm underline"
+                    >
+                      Follow this link to join my WhatsApp community
+                    </a>
+                  </div>
+                  
+                  {/* Divider */}
+                  <div className="relative">
+                    <div className="absolute inset-0 flex items-center">
+                      <span className="w-full border-t border-border" />
+                    </div>
+                    <div className="relative flex justify-center text-xs uppercase">
+                      <span className="bg-background px-2 text-muted-foreground">Or select specific amount</span>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <>
+                  {/* Custom Amount UPI QR Code */}
+                  <UPIQRCode
+                    amount={selectedAmount}
+                    upiId="9799104619@ptsbi"
+                    merchantName="AstroRishabh"
+                    onCancel={() => setShowQR(false)}
+                  />
+                  
+                  {/* WhatsApp Community Link */}
+                  <div className="text-center p-4 bg-gradient-to-r from-green-50 to-green-100 rounded-lg border border-green-200">
+                    <p className="text-sm text-green-800 mb-2">
+                      📱 Join our WhatsApp Community for updates & tips
+                    </p>
+                    <a 
+                      href="https://chat.whatsapp.com/Crta3YFj4MfFlv1HxLMIsq"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-green-600 hover:text-green-700 font-medium text-sm underline"
+                    >
+                      Follow this link to join my WhatsApp community
+                    </a>
+                  </div>
+                </>
+              )}
+
+              {/* Amount Selection - Always Visible */}
               <div>
                 <label className="block text-sm font-medium mb-3">Select Amount (₹)</label>
                 <div className="grid grid-cols-3 gap-3 mb-4">
@@ -114,41 +177,10 @@ const Payment = () => {
                     variant="saffron"
                     disabled={selectedAmount < 50}
                   >
-                    Pay Now
+                    {showQR ? 'Update QR' : 'Generate QR'}
                   </Button>
                 </div>
               </div>
-
-              {/* UPI QR Code */}
-              {showQR && (
-                <div className="text-center p-6 bg-muted/50 rounded-lg">
-                  <h3 className="font-semibold mb-4">Scan QR Code to Pay ₹{selectedAmount}</h3>
-                  
-                  {/* QR Code Placeholder - Replace with actual QR code generator */}
-                  <div className="w-48 h-48 mx-auto bg-white border-2 border-border rounded-lg flex items-center justify-center mb-4">
-                    <div className="text-center">
-                      <QrCode className="w-24 h-24 mx-auto mb-2 text-muted-foreground" />
-                      <p className="text-sm text-muted-foreground">QR Code</p>
-                    </div>
-                  </div>
-                  
-                  <div className="space-y-2 text-sm">
-                    <p><strong>UPI ID:</strong> astrorishabh@paytm</p>
-                    <p><strong>Amount:</strong> ₹{selectedAmount}</p>
-                    <p className="text-muted-foreground">
-                      Scan with any UPI app (PhonePe, Google Pay, Paytm, etc.)
-                    </p>
-                  </div>
-                  
-                  <Button 
-                    variant="outline" 
-                    className="mt-4"
-                    onClick={() => setShowQR(false)}
-                  >
-                    Cancel Payment
-                  </Button>
-                </div>
-              )}
 
               {/* Payment Methods */}
               <div className="space-y-3">
@@ -206,7 +238,7 @@ const Payment = () => {
                 <div className="mt-6 p-4 bg-gradient-to-r from-primary/10 to-accent/10 rounded-lg">
                   <h4 className="font-medium mb-2">🌟 Special Offer</h4>
                   <p className="text-sm text-muted-foreground">
-                    Get your complete birth chart analysis for just ₹500. 
+                    Get your complete birth chart analysis with detailed insights. 
                     Includes planetary positions, doshas, and personalized remedies.
                   </p>
                 </div>

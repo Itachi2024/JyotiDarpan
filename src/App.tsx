@@ -5,6 +5,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { SupabaseStatus } from "@/components/SupabaseStatus";
+import WhatsAppFloatingButton from "@/components/WhatsAppFloatingButton";
+import ScrollToTop from "@/components/ScrollToTop";
 import "@/utils/testApi"; // Import test utilities
 import Index from "./pages/Index";
 import Horoscope from "./pages/Horoscope";
@@ -34,6 +36,7 @@ const App = () => (
       <SupabaseStatus />
       <ErrorBoundary>
         <BrowserRouter>
+          <ScrollToTop />
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/horoscope" element={<Horoscope />} />
@@ -54,6 +57,7 @@ const App = () => (
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
+          <WhatsAppFloatingButton />
         </BrowserRouter>
       </ErrorBoundary>
     </TooltipProvider>

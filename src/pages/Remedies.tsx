@@ -34,7 +34,7 @@ const Remedies = () => {
             <Sparkles className="w-4 h-4 text-primary" />
             <span className="text-sm font-medium text-primary">Astrological Remedies</span>
           </div>
-          <h1 className="text-3xl lg:text-5xl font-bold text-foreground mb-2">
+          <h1 className="text-3xl lg:text-5xl font-bold text-foreground mb-4">
             <span className="text-shimmer">ज्योतिष</span> उपाय
           </h1>
           <p className="text-muted-foreground">Effective remedies for planetary doshas and life problems</p>

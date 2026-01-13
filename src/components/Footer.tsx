@@ -14,32 +14,32 @@ import { Button } from '@/components/ui/button';
 
 const Footer = () => {
   const quickLinks = [
-    { label: 'Daily Horoscope', href: '/horoscope' },
-    { label: 'Free Kundli', href: '/kundli' },
-    { label: 'Match Making', href: '/match-making' },
-    { label: 'Panchang', href: '/panchang' },
+    { id: 'horoscope', label: 'Daily Horoscope', href: '/horoscope' },
+    { id: 'kundli', label: 'Free Kundli', href: '/kundli' },
+    { id: 'matchmaking', label: 'Match Making', href: '/match-making' },
+    { id: 'panchang', label: 'Panchang', href: '/panchang' },
   ];
 
   const services = [
-    { label: 'Talk to Astrologer', href: '/astrologers' },
-    { label: 'Chat with Astrologer', href: '/astrologers' },
+    { id: 'talk', label: 'Talk to Astrologer', href: '/astrologers' },
+    { id: 'chat', label: 'Chat with Astrologer', href: '/astrologers' },
     // { label: 'Video Consultation', href: '/video' },
-    { label: 'Secure Payment', href: '/payment' },
-    { label: 'Astro Shop', href: '/shop' },
+    { id: 'payment', label: 'Secure Payment', href: '/payment' },
+    { id: 'shop', label: 'Astro Shop', href: '/shop' },
   ];
 
   const resources = [
-    { label: 'WhatsApp Community', href: 'https://chat.whatsapp.com/your_whatsapp_community_link' },
-    { label: 'Hindu Calendar', href: 'https://www.drikpanchang.com/calendars/hindu/hinducalendar.html' },
-    { label: 'Remedies', href: '/remedies' },
-    { label: 'Gemstones', href: '/shop' },
+    { id: 'whatsapp', label: 'WhatsApp Community', href: 'https://chat.whatsapp.com/Crta3YFj4MfFlv1HxLMIsq' },
+    { id: 'calendar', label: 'Hindu Calendar', href: 'https://www.drikpanchang.com/calendars/hindu/hinducalendar.html' },
+    { id: 'remedies', label: 'Remedies', href: '/remedies' },
+    { id: 'gemstones', label: 'Gemstones', href: '/shop' },
   ];
 
   const legal = [
-    { label: 'Terms of Service', href: '/terms' },
-    { label: 'Privacy Policy', href: '/privacy' },
-    { label: 'Refund Policy', href: '/refund' },
-    { label: 'Disclaimer', href: '/disclaimer' },
+    { id: 'terms', label: 'Terms of Service', href: '/terms' },
+    { id: 'privacy', label: 'Privacy Policy', href: '/privacy' },
+    { id: 'refund', label: 'Refund Policy', href: '/refund' },
+    { id: 'disclaimer', label: 'Disclaimer', href: '/disclaimer' },
   ];
 
   return (
@@ -109,7 +109,7 @@ const Footer = () => {
             <h4 className="text-lg font-semibold text-white mb-4">Quick Links</h4>
             <ul className="space-y-2">
               {quickLinks.map((link) => (
-                <li key={link.href}>
+                <li key={link.id}>
                   <Link to={link.href} className="text-white/70 hover:text-primary transition-colors">
                     {link.label}
                   </Link>
@@ -123,7 +123,7 @@ const Footer = () => {
             <h4 className="text-lg font-semibold text-white mb-4">Services</h4>
             <ul className="space-y-2">
               {services.map((link) => (
-                <li key={link.href}>
+                <li key={link.id}>
                   <Link to={link.href} className="text-white/70 hover:text-primary transition-colors">
                     {link.label}
                   </Link>
@@ -137,7 +137,7 @@ const Footer = () => {
             <h4 className="text-lg font-semibold text-white mb-4">Resources</h4>
             <ul className="space-y-2">
               {resources.map((link) => (
-                <li key={link.href}>
+                <li key={link.id}>
                   <a href={link.href} target={link.href.startsWith('http') ? '_blank' : '_self'} rel={link.href.startsWith('http') ? 'noopener noreferrer' : ''} className="text-white/70 hover:text-primary transition-colors">
                     {link.label}
                   </a>
@@ -159,7 +159,7 @@ const Footer = () => {
                 { icon: Instagram, href: 'https://www.instagram.com/astro_rishabh_21?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==' },
                 {
           icon: FaWhatsapp,
-          href: "https://chat.whatsapp.com/your_whatsapp_community_link",
+          href: "https://chat.whatsapp.com/Crta3YFj4MfFlv1HxLMIsq",
         },
                 { icon: Youtube, href: '#' },
               ].map((social, index) => (
@@ -194,7 +194,7 @@ const Footer = () => {
           {/* Legal Links */}
           <div className="flex flex-wrap justify-center gap-4 mt-6">
             {legal.map((link) => (
-              <Link key={link.href} to={link.href} className="text-white/50 text-sm hover:text-white/80 transition-colors">
+              <Link key={link.id} to={link.href} className="text-white/50 text-sm hover:text-white/80 transition-colors">
                 {link.label}
               </Link>
             ))}

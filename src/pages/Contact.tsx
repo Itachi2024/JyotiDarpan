@@ -111,7 +111,7 @@ const Contact = () => {
             <Phone className="w-4 h-4 text-primary" />
             <span className="text-sm font-medium text-primary">Get In Touch</span>
           </div>
-          <h1 className="text-3xl lg:text-5xl font-bold text-foreground mb-2">
+          <h1 className="text-3xl lg:text-5xl font-bold text-foreground mb-4">
             <span className="text-shimmer">संपर्क</span> करें
           </h1>
           <p className="text-muted-foreground">Contact Us • We're here to help with all your astrology needs</p>

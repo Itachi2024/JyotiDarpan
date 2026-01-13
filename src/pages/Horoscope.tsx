@@ -288,7 +288,7 @@ const Horoscope = () => {
             <Star className="w-4 h-4 text-primary" />
             <span className="text-sm font-medium text-primary">Rashifal</span>
           </div>
-          <h1 className="text-3xl lg:text-5xl font-bold text-foreground mb-2">
+          <h1 className="text-3xl lg:text-5xl font-bold text-foreground mb-4">
             <span className="text-shimmer">आज का</span> राशिफल
           </h1>
           <p className="text-muted-foreground">Today's Horoscope • Select your zodiac sign</p>

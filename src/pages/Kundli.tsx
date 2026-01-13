@@ -95,7 +95,7 @@ const Kundli = () => {
             <FileText className="w-4 h-4 text-primary" />
             <span className="text-sm font-medium text-primary">Free Kundli</span>
           </div>
-          <h1 className="text-3xl lg:text-5xl font-bold text-foreground mb-2">
+          <h1 className="text-3xl lg:text-5xl font-bold text-foreground mb-4">
             <span className="text-shimmer">निःशुल्क</span> कुंडली
           </h1>
           <p className="text-muted-foreground">Free Birth Chart / Janam Kundli Generator</p>

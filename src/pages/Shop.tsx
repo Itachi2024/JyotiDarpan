@@ -123,7 +123,7 @@ const Shop = () => {
             <ShoppingBag className="w-4 h-4 text-primary" />
             <span className="text-sm font-medium text-primary">Astro Shop</span>
           </div>
-          <h1 className="text-3xl lg:text-5xl font-bold text-foreground mb-2">
+          <h1 className="text-3xl lg:text-5xl font-bold text-foreground mb-4">
             <span className="text-shimmer">रत्न</span> दुकान
           </h1>
           <p className="text-muted-foreground">Certified Gemstones, Rudraksha, Yantras & More</p>

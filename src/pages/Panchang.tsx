@@ -222,7 +222,7 @@ const Panchang = () => {
             <Calendar className="w-4 h-4 text-primary" />
             <span className="text-sm font-medium text-primary">Daily Panchang</span>
           </div>
-          <h1 className="text-3xl lg:text-5xl font-bold text-foreground mb-2">
+          <h1 className="text-3xl lg:text-5xl font-bold text-foreground mb-4">
             <span className="text-shimmer">आज का</span> पंचांग
           </h1>
           <p className="text-muted-foreground">Hindu Calendar with Tithi, Nakshatra & Muhurat</p>

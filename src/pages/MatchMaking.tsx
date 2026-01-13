@@ -71,7 +71,7 @@ const MatchMaking = () => {
             <Heart className="w-4 h-4 text-pink-500" />
             <span className="text-sm font-medium text-pink-500">Kundli Milan</span>
           </div>
-          <h1 className="text-3xl lg:text-5xl font-bold text-foreground mb-2">
+          <h1 className="text-3xl lg:text-5xl font-bold text-foreground mb-4">
             <span className="text-shimmer">कुंडली</span> मिलान
           </h1>
           <p className="text-muted-foreground">36 Guna Match Making / Ashtakoota Milan</p>
